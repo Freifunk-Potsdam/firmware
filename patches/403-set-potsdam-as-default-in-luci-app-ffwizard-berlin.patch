@@ -1,0 +1,24 @@
+--- a/feeds/packages_berlin/utils/luci-app-ffwizard-berlin/luasrc/model/cbi/freifunk/assistent/generalInfo.lua
++++ b/feeds/packages_berlin/utils/luci-app-ffwizard-berlin/luasrc/model/cbi/freifunk/assistent/generalInfo.lua
+@@ -14,7 +14,7 @@ generalinfo.template = "freifunk/assiste
+ 
+ community = f:field(ListValue, "net", "Freifunk-Community", "")
+ function community.cfgvalue(self, section)
+-  return uci:get("freifunk", "community", "name") or "berlin"
++  return uci:get("freifunk", "community", "name") or "potsdam"
+ end
+ local profiles = "/etc/config/profile_"
+ for v in fs.glob(profiles.."*") do
+--- a/feeds/packages_berlin/utils/freifunk-berlin-freifunk-defaults/files/etc/config/freifunk
++++ b/feeds/packages_berlin/utils/freifunk-berlin-freifunk-defaults/files/etc/config/freifunk
+@@ -8,8 +8,8 @@ config 'public' 'contact'
+ 	option 'note' ''
+ 
+ config 'public' 'community'
+-	option 'name' 'berlin'
+-	option 'homepage' 'http://berlin.freifunk.net'
++	option 'name' 'potsdam'
++	option 'homepage' 'http://potsdam.freifunk.net'
+ 
+ config 'defaults' 'system'
+ 	option 'zonename' 'Europe/Berlin'
