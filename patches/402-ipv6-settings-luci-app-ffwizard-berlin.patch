@@ -1,0 +1,51 @@
+--- a/feeds/packages_berlin/utils/luci-app-ffwizard-berlin/luasrc/model/cbi/freifunk/assistent/wireless.lua
++++ b/feeds/packages_berlin/utils/luci-app-ffwizard-berlin/luasrc/model/cbi/freifunk/assistent/wireless.lua
+@@ -78,6 +78,9 @@ if vap == "1" then
+   end
+ end
+ 
++-- IPv6
++local ipv6 = uci:get_first(community, "community", "ipv6") or "1"
++
+ main = f:field(DummyValue, "netconfig", "", "")
+ main.forcewrite = true
+ function main.parse(self, section)
+@@ -172,7 +175,11 @@ function main.write(self, section, value
+       prenetconfig.proto = "static"
+       prenetconfig.ipaddr = node_ip:host():string()
+       prenetconfig.netmask = uci:get(community,'interface','netmask')
+-      prenetconfig.ip6assign = 64
++      if ipv6 == "1" then
++          prenetconfig.ip6assign = 64
++      else
++          prenetconfig.delegate = 0
++      end
+       uci:section("network", "interface", calcnif(device), prenetconfig)
+ 
+       --WIRELESS CONFIG ap
+@@ -229,7 +236,11 @@ function main.write(self, section, value
+     prenetconfig.proto="static"
+     prenetconfig.ipaddr=dhcpmeshnet:minhost():string()
+     prenetconfig.netmask=dhcpmeshnet:mask():string()
+-    prenetconfig.ip6assign="64"
++    if ipv6 == "1" then
++        prenetconfig.ip6assign = 64
++    else
++        prenetconfig.delegate = 0
++    end
+     -- use ifname from dhcp bridge on a consecutive run of assistent
+     prenetconfig.ifname=uci:get("network", "lan", "ifname") or uci:get("network", "dhcp", "ifname")
+ 
+@@ -261,8 +272,10 @@ function main.write(self, section, value
+     dhcpbase.ignore = 0
+     uci:section("dhcp", "dhcp", "dhcp", dhcpbase)
+     uci:set_list("dhcp", "dhcp", "dhcp_option", "119,olsr")
+-    uci:set("dhcp", "dhcp", "dhcpv6", "server")
+-    uci:set("dhcp", "dhcp", "ra", "server")
++    if ipv6 == "1" then
++        uci:set("dhcp", "dhcp", "dhcpv6", "server")
++        uci:set("dhcp", "dhcp", "ra", "server")
++    end
+     -- DHCP CONFIG set start and limit option
+     -- start (offset from network address) is 2
+     -- first host address is used by the router
