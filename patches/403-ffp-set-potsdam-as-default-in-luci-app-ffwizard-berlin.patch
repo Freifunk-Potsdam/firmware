@@ -1,0 +1,13 @@
+--- a/feeds/packages_berlin/utils/freifunk-berlin-freifunk-defaults/files/etc/config/freifunk
++++ b/feeds/packages_berlin/utils/freifunk-berlin-freifunk-defaults/files/etc/config/freifunk
+@@ -8,8 +8,8 @@ config 'public' 'contact'
+ 	option 'note' ''
+ 
+ config 'public' 'community'
+-	option 'name' 'berlin'
+-	option 'homepage' 'http://berlin.freifunk.net'
++	option 'name' 'potsdam'
++	option 'homepage' 'http://potsdam.freifunk.net'
+ 
+ config 'defaults' 'system'
+ 	option 'zonename' 'Europe/Berlin'

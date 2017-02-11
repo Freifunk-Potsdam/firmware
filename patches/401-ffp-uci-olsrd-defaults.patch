@@ -1,0 +1,11 @@
+--- a/feeds/packages_berlin/utils/freifunk-berlin-olsrd-defaults/uci-defaults/freifunk-berlin-olsrd-defaults
++++ b/feeds/packages_berlin/utils/freifunk-berlin-olsrd-defaults/uci-defaults/freifunk-berlin-olsrd-defaults
+@@ -52,7 +52,7 @@ uci set olsrd.$OLSRD.FIBMetric=flat
+ uci set olsrd.$OLSRD.AllowNoInt=yes
+ uci set olsrd.$OLSRD.TcRedundancy=2
+ uci set olsrd.$OLSRD.NatThreshold=0.75
+-uci set olsrd.$OLSRD.LinkQualityAlgorithm=etx_ff
++uci set olsrd.$OLSRD.LinkQualityAlgorithm=etx_ffeth
+ uci set olsrd.$OLSRD.SmartGateway=yes
+ uci set olsrd.$OLSRD.SmartGatewayThreshold=50
+ uci set olsrd.$OLSRD.Pollrate=0.025
