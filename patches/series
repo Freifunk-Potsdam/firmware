@@ -13,9 +13,11 @@
 012-iwinfo_add_nsm2locoxm.patch
 100-add_package_snmp-mibs.patch
 200-update-community-profiles.patch
+201-fix-community-profile-potsdam.patch
 600-imagebuilder-custom-postinst-script.patch
 700-banner-info.patch
 701-luci-freifunk-policyrouting-berlin.patch
 702-luci-bootstrap-input-css.patch
 703-policyrouting_fix_bypass-vpn.patch
 800-fix_owm-firmware-name.patch
+400-fix-channel-from-profile-luci-app-ffwizard-berlin.patch
