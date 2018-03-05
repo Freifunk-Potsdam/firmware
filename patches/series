@@ -13,3 +13,4 @@
 704-policyrouting_ignore_ffuplink.patch
 800-ffp-fix-community-profle.patch
 801-ffp-uci-olsrd-defaults.patch
+802-ffp-ipv6-settings-luci-app-ffwizard-berlin.patch
