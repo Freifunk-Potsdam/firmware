@@ -180,7 +180,7 @@ $(VERSION_FILE): .stamp-prepared
 	mkdir -p $(FW_TARGET_DIR)
 	# Create version info file
 	GIT_BRANCH_ESC=$(shell $(GIT_BRANCH) | tr '/' '_'); \
-	echo "https://github.com/freifunk-berlin/firmware" > $(VERSION_FILE); \
+	echo "https://github.com/hafu/firmware" > $(VERSION_FILE); \
 	echo "https://wiki.freifunk.net/Berlin:Firmware" >> $(VERSION_FILE); \
 	echo "Firmware: git branch \"$$GIT_BRANCH_ESC\", revision $(FW_REVISION)" >> $(VERSION_FILE); \
 	# add openwrt revision with data from config.mk \
@@ -222,10 +222,13 @@ endif
 	# see https://github.com/freifunk-berlin/firmware/issues/178
 	# 1) remove all "squashfs" from filenames
 	for file in `find $(RELPATH) -name "freifunk-berlin-*-squashfs-*.bin"` ; do mv $$file $${file/squashfs-/}; done
+	for file in `find $(RELPATH) -name "freifunk-potsdam-*-squashfs-*.bin"` ; do mv $$file $${file/squashfs-/}; done
 	# 2) remove all TARGET names (e.g. ar71xx-generic) from filename
 	for file in `find $(RELPATH) -name "freifunk-berlin-*-$(MAINTARGET)-$(SUBTARGET)-*.bin"` ; do mv $$file $${file/$(MAINTARGET)-$(SUBTARGET)-/}; done
+	for file in `find $(RELPATH) -name "freifunk-potsdam-*-$(MAINTARGET)-$(SUBTARGET)-*.bin"` ; do mv $$file $${file/$(MAINTARGET)-$(SUBTARGET)-/}; done
 	# 3) replace default filename prefix "freifunk-berlin" by current version-nick
 	for file in `find $(RELPATH) -name "freifunk-berlin-*"` ; do mv $$file $${file/freifunk-berlin/hedy}; done
+	for file in `find $(RELPATH) -name "freifunk-potsdam-*"` ; do mv $$file $${file/freifunk-potsdam/hedy}; done
 	touch $@
 
 stamp-clean-%:

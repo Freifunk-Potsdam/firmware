@@ -1,3 +1,17 @@
+# Freifunk Firmware Potsdam "Hedy" Patches
+__This branch is a fork of the [Freifunk Berlin Firmware](https://github.com/freifunk-berlin/firmware/tree/1.0.0) with additional patches for the Freifunk Potsdam Community to improve the setup workflow for new nodes.__
+
+Patches will be improved and merged into upstream.
+
+## Patches
+* community profile (SSID)
+* olsrd defaults etx_ff -> etx_ffeth
+* read and set IPv6 settings
+* set potsdam as default community
+* replace default hostname with "template"
+* append suffix "-ffp" to version, changed VERSION_DIST and VERSION_REPO
+
+
 # Freifunk Firmware Berlin "Hedy"
 https://wiki.freifunk.net/Berlin:Firmware
 
