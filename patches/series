@@ -11,8 +11,8 @@
 701-luci-freifunk-policyrouting-berlin.patch
 703-policyrouting_fix_bypass-vpn.patch
 704-policyrouting_ignore_ffuplink.patch
-800-ffp-fix-community-profle.patch
-801-ffp-uci-olsrd-defaults.patch
-802-ffp-ipv6-settings-luci-app-ffwizard-berlin.patch
-803-ffp-set-potsdam-as-default.patch
-804-ffp-hostname-template.patch
+800-mbedtls-accept-rsa-1024.patch
+810-ffp-uci-olsrd-defaults.patch
+811-ffp-ipv6-settings-luci-app-ffwizard-berlin.patch
+812-ffp-set-potsdam-as-default.patch
+813-ffp-hostname-template.patch
