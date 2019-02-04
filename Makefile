@@ -180,7 +180,7 @@ $(VERSION_FILE): .stamp-prepared
 	mkdir -p $(FW_TARGET_DIR)
 	# Create version info file
 	GIT_BRANCH_ESC=$(shell $(GIT_BRANCH) | tr '/' '_'); \
-	echo "https://github.com/hafu/firmware" > $(VERSION_FILE); \
+	echo "https://github.com/Freifunk-Potsdam/firmware" > $(VERSION_FILE); \
 	echo "https://wiki.freifunk.net/Berlin:Firmware" >> $(VERSION_FILE); \
 	echo "Firmware: git branch \"$$GIT_BRANCH_ESC\", revision $(FW_REVISION)" >> $(VERSION_FILE); \
 	# add openwrt revision with data from config.mk \
