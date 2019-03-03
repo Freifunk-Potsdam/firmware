@@ -51,8 +51,6 @@ luci-i18n-firewall-de
 luci-i18n-firewall-en
 luci-i18n-olsr-de
 luci-i18n-olsr-en
-luci-i18n-statistics-de
-luci-i18n-statistics-en
 
 # OLSR
 olsrd
@@ -73,13 +71,3 @@ batctl
 freifunk-berlin-uplink-tunnelberlin-tunneldigger-files
 
 # Statistics
-luci-app-statistics
-collectd
-collectd-mod-interface
-collectd-mod-iwinfo
-collectd-mod-network
-collectd-mod-olsrd
-collectd-mod-rrdtool
-collectd-mod-ping
-collectd-mod-uptime
-collectd-mod-memory

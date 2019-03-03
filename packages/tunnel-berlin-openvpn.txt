@@ -53,8 +53,6 @@ luci-i18n-olsr-de
 luci-i18n-olsr-en
 luci-i18n-openvpn-de
 luci-i18n-openvpn-en
-luci-i18n-statistics-de
-luci-i18n-statistics-en
 
 # OLSR
 olsrd
@@ -78,13 +76,3 @@ freifunk-berlin-uplink-tunnelberlin-files
 luci-app-vpnbypass
 
 # Statistics
-luci-app-statistics
-collectd
-collectd-mod-interface
-collectd-mod-iwinfo
-collectd-mod-network
-collectd-mod-olsrd
-collectd-mod-rrdtool
-collectd-mod-ping
-collectd-mod-uptime
-collectd-mod-memory
