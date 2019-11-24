@@ -23,13 +23,14 @@ The firmware is based on vanilla [OpenWrt](https://openwrt.org/start) with some 
 broken stuff in OpenWrt itself or for example LuCI) and additional default packages/configuration settings.
 New features like a new network concept will be part of future releases.
 
-## Release Note 1.0.2 "Hedy" - 2019-01-21
+## Release Note 1.0.4 "Hedy" - 2019-06-26
 * a maintenance release for Hedy-1.0.x-series
 * brings the new feature of changing the uplink preset-type
 * a new uplink-preset "tunnelberlin-tunneldigger"
 * updates to fix security-problems and minor functional problems 
 * images for 
   * Ubiquiti ERX SFP, TP-Link WR1043ND-v4
+  * TP-Link MR3020-v1, TP-Link MR3020, TP-Link Archer C50v1
   * support for RaspberryPi and RaspberryPi3 (compile yourself)
 * introduces interface "ffuplink" for a flexible configuration of the wired uplink
 * improved support of 802.11s mesh in LuCI
@@ -41,9 +42,9 @@ New features like a new network concept will be part of future releases.
 
 ## Features
 * based on [OpenWrt](https://openwrt.org/start) v17.01.6+ (lede-17.01 branch)
-  * Linux 4.4.167
+  * Linux 4.4.182
   * OLSR 0.9.0.3 (downgraded for BBB-VPN compatibility)
-  * B.A.T.M.A.N. 2016.5 (with patches of 2019.0)
+  * B.A.T.M.A.N. 2016.5 (with patches of 2019.2)
 * custom package lists for different settings
   * "default" variant includes ffwizard, openvpn, BATMAN
   * "default_4MB" like the "default" variant, but excludes public router statistics page (luci-mod-freifunk), monitoring (collectd), BATMAN to fit into boards with 4MB flash
@@ -101,7 +102,7 @@ http://github.com/freifunk-berlin/packages_berlin.
 
 ### Build Prerequisites
 
-Please take a look at the [OpenWrt documentation](http://wiki.openwrt.org/doc/howto/buildroot.exigence#examples.of.package.installations)
+Please take a look at the [OpenWrt documentation](https://openwrt.org/docs/guide-developer/build-system/install-buildsystem?s[]=prerequisites#prerequisites)
 for a complete and uptodate list of packages for your operating system. Make
 sure the list contains `quilt`. We use it for patch management.
 
@@ -117,6 +118,11 @@ zypper install --type pattern devel_basis
 zypper install git subversion ncurses-devel zlib-devel gawk \
   unzip perl-libxml-perl flex wget gawk gettext-runtime quilt python libopenssl-devel
 ```
+On Arch/Antergos:
+```
+pacman -S base-devel git ncurses lib32-zlib gawk time unzip perl-xml-libxml \
+ flex wget gettext quilt python openssl
+```
 
 ### Building all firmwares
 
@@ -128,9 +134,8 @@ cd firmware
 make
 ```
 
-The build will take some time. You can improve the build time with
-[build options](http://wiki.openwrt.org/doc/howto/build#make_options) such as
-`-j <number of cores>`. `V=s` will give more verbose error messages.
+The build will take some time. You can improve the build time with [build options](https://openwrt.org/docs/guide-developer/build-system/use-buildsystem)
+such as `-j <number of cores>`. `V=s` will give more verbose error messages.
 
 An internet connection is required during the build process. A good internet
 connection can improve the build time.
@@ -145,23 +150,30 @@ in `firmwares`. The layout looks like the following:
 ```
 firmwares/
     TARGET/
-        OpenWrt-ImageBuilder-....tar.bz2
         backbone/
            images..
         default/
            images..
         ...
+        OpenWrt-ImageBuilder-....tar.xz
+        OpenWrt-SDK-....tar.xz
         packages/
-           base/
-           luci/
-           packages/
-           packages_berlin/
-           routing/
+           packages/<ARCH>
+              base/*.ipk
+              luci/*.ipk
+              packages/*.ipk
+              packages_berlin/*.ipk
+              routing/*.ipk
+           targets/MAINTARGET/SUBTARGET/packages/
+              *.ipk
 ```
 
 As you notice there are several different image variants ("backbone", "default", etc.).
 These different *packages lists* are defined in `packages/`.
 See the "Features" section above for a description of the purpose of each package list.
+With the "OpenWrt-Imagebuilder" you can assemble your own image variant with your 
+*packages lists* without having to compile everything yourself. The "OpenWrt-SDK" is
+the fastest way to build your own packages or programs without compiling OpenWrt itself.
 
 `make` will use by default `TARGET` and `PACKAGES_LIST_DEFAULT` defined in
 `config.mk`. You can customize this by overriding them:
@@ -216,7 +228,7 @@ once you pushed the new branch to github.
 
 **Important:** all patches should be pushed upstream!
 
-If a patch is not yet included upstream, it can be placed in the `patches` directory with the `quilt` tool. Please configure `quilt` as described in the [OpenWrt wiki](http://wiki.openwrt.org/doc/devel/patches) (which also provides a documentation of `quilt`).
+If a patch is not yet included upstream, it can be placed in the `patches` directory with the `quilt` tool. Please configure `quilt` as described in the [OpenWrt wiki](https://openwrt.org/docs/guide-developer/patches) (which also provides a documentation of `quilt`).
 
 #### Add, modify or delete a patch
 
@@ -230,7 +242,7 @@ Then switch to the openwrt directory:
 ```bash
 cd openwrt
 ```
-Now you can use the `quilt` commands as described in the [OpenWrt wiki](http://wiki.openwrt.org/doc/devel/patches).
+Now you can use the `quilt` commands as described in the [OpenWrt wiki](https://openwrt.org/docs/guide-developer/patches).
 
 ##### Example: add a patch
 
@@ -270,4 +282,3 @@ git send-email \
 ```
 
 Additional information: https://dev.openwrt.org/wiki/SubmittingPatches
-
