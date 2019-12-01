@@ -77,13 +77,4 @@ openvpn-openssl
 freifunk-berlin-uplink-tunnelberlin-files
 
 # Statistics
-luci-app-statistics
-collectd
-collectd-mod-interface
-collectd-mod-iwinfo
-collectd-mod-network
-collectd-mod-olsrd
-collectd-mod-rrdtool
-collectd-mod-ping
-collectd-mod-uptime
-collectd-mod-memory
+freifunk-potsdam-collect
