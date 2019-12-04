@@ -71,3 +71,4 @@ batctl
 freifunk-berlin-uplink-notunnel-files
 
 # Statistics
+freifunk-potsdam-collect

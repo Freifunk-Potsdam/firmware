@@ -1,0 +1,22 @@
+--- a/feeds/packages_berlin/defaults/freifunk-berlin-system-defaults/uci-defaults/freifunk-berlin-system-defaults
++++ b/feeds/packages_berlin/defaults/freifunk-berlin-system-defaults/uci-defaults/freifunk-berlin-system-defaults
+@@ -5,7 +5,7 @@
+ 
+ # change default hostname
+ if [ $(uci get system.@system[0].hostname) = LEDE ]; then
+-  uci set system.@system[0].hostname=gib-mir-einen-namen
++  uci set system.@system[0].hostname=XXX-YYY-eindeutiger-name
+ fi
+ 
+ uci commit system
+--- a/feeds/packages_berlin/utils/luci-app-ffwizard-berlin/luasrc/controller/assistent/assistent.lua
++++ b/feeds/packages_berlin/utils/luci-app-ffwizard-berlin/luasrc/controller/assistent/assistent.lua
+@@ -50,7 +50,7 @@ function commit()
+   local community = "profile_"..uci:get("freifunk","community","name")
+ 
+   --change hostname to mesh ip if it is still the default (Openwrt-something, LEDE, e.g.)
+-  if string.sub(uci:get_first("system","system","hostname"),1,string.len("gib-mir-einen-namen"))=="gib-mir-einen-namen" then
++  if string.sub(uci:get_first("system","system","hostname"),1,string.len("XXX-YYY-eindeutiger-name"))=="XXX-YYY-eindeutiger-name" then
+     local dhcpmesh = uci:get("ffwizard","settings","dhcpmesh")
+     dhcpmesh = ip.IPv4(dhcpmesh):minhost()
+     uci:foreach("system", "system",

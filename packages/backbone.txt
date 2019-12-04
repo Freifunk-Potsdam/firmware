@@ -61,3 +61,4 @@ alfred
 batctl
 
 # Statistics
+freifunk-potsdam-collect

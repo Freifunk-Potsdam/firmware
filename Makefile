@@ -16,6 +16,10 @@ FW_TARGET_DIR=$(FW_DIR)/firmwares/$(MAINTARGET)-$(SUBTARGET)
 VERSION_FILE=$(FW_TARGET_DIR)/VERSION.txt
 UMASK=umask 022
 
+ifeq ($(shell hostname -f),buildbot)
+SET_BUILDBOT=yes
+endif
+
 ifeq ($(SET_BUILDBOT),no)
 override IS_BUILDBOT=no
 else ifeq ($(SET_BUILDBOT),yes)
@@ -38,6 +42,13 @@ DEPS=$(TARGET_CONFIG) feeds.conf patches $(wildcard patches/*)
 PROFILES=$(shell cat $(FW_DIR)/profiles/$(MAINTARGET)-$(SUBTARGET).profiles)
 
 FW_REVISION=$(shell $(REVISION))
+
+ifndef BUILDTYPE
+$(error BUILDTYPE is not set)
+endif
+ifeq ($(filter release unstable,$(BUILDTYPE)),)
+ $(error invalid BUILDTYPE "$(BUILDTYPE)")
+endif
 
 default: firmwares
 
@@ -119,6 +130,11 @@ $(OPENWRT_DIR)/.config: .stamp-patched $(TARGET_CONFIG) .stamp-build_rev $(OPENW
 	cat $(TARGET_CONFIG) >$(OPENWRT_DIR)/.config
 	# always replace CONFIG_VERSION_CODE by FW_REVISION
 	sed -i "/^CONFIG_VERSION_CODE=/c\CONFIG_VERSION_CODE=\"$(FW_REVISION)\"" $(OPENWRT_DIR)/.config
+ifeq ($(BUILDTYPE),release)
+	# always set CONFIG_VERSION_CODE_FILENAMES to false, to have only the official release-version
+	# in the name (prevent *Hedy-1.0.0-v1.0.0*.bin)
+	sed -i "/^CONFIG_VERSION_CODE_FILENAMES=/c\CONFIG_VERSION_CODE_FILENAMES=n" $(OPENWRT_DIR)/.config
+endif
 	$(UMASK); \
 	  $(MAKE) -C $(OPENWRT_DIR) defconfig
 
@@ -163,7 +179,7 @@ $(VERSION_FILE): .stamp-prepared
 	mkdir -p $(FW_TARGET_DIR)
 	# Create version info file
 	GIT_BRANCH_ESC=$(shell $(GIT_BRANCH) | tr '/' '_'); \
-	echo "https://github.com/freifunk-berlin/firmware" > $(VERSION_FILE); \
+	echo "https://github.com/Freifunk-Potsdam/firmware" > $(VERSION_FILE); \
 	echo "https://wiki.freifunk.net/Berlin:Firmware" >> $(VERSION_FILE); \
 	echo "Firmware: git branch \"$$GIT_BRANCH_ESC\", revision $(FW_REVISION)" >> $(VERSION_FILE); \
 	# add openwrt revision with data from config.mk \
@@ -205,8 +221,13 @@ endif
 	# see https://github.com/freifunk-berlin/firmware/issues/178
 	# 1) remove all "squashfs" from filenames
 	for file in `find $(RELPATH) -name "freifunk-berlin-*-squashfs-*.bin"` ; do mv $$file $${file/squashfs-/}; done
+	for file in `find $(RELPATH) -name "freifunk-potsdam-*-squashfs-*.bin"` ; do mv $$file $${file/squashfs-/}; done
 	# 2) remove all TARGET names (e.g. ar71xx-generic) from filename
 	for file in `find $(RELPATH) -name "freifunk-berlin-*-$(MAINTARGET)-$(SUBTARGET)-*.bin"` ; do mv $$file $${file/$(MAINTARGET)-$(SUBTARGET)-/}; done
+	for file in `find $(RELPATH) -name "freifunk-potsdam-*-$(MAINTARGET)-$(SUBTARGET)-*.bin"` ; do mv $$file $${file/$(MAINTARGET)-$(SUBTARGET)-/}; done
+	# 3) replace default filename prefix "freifunk-berlin" by current version-nick
+	for file in `find $(RELPATH) -name "freifunk-berlin-*"` ; do mv $$file $${file/freifunk-berlin/hedy}; done
+	for file in `find $(RELPATH) -name "freifunk-potsdam-*"` ; do mv $$file $${file/freifunk-potsdam/hedy}; done
 	touch $@
 
 stamp-clean-%:

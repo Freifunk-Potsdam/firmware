@@ -51,6 +51,8 @@ luci-i18n-firewall-de
 luci-i18n-firewall-en
 luci-i18n-olsr-de
 luci-i18n-olsr-en
+luci-i18n-statistics-de
+luci-i18n-statistics-en
 
 # OLSR
 olsrd
@@ -71,3 +73,4 @@ batctl
 freifunk-berlin-uplink-tunnelberlin-tunneldigger-files
 
 # Statistics
+freifunk-potsdam-collect
