@@ -1,3 +1,17 @@
+# Freifunk Firmware Potsdam "Hedy" Patches
+__This branch is a fork of the [Freifunk Berlin Firmware](https://github.com/freifunk-berlin/firmware/tree/1.0.0) with additional patches for the Freifunk Potsdam Community to improve the setup workflow for new nodes.__
+
+Patches will be improved and merged into upstream.
+
+## Patches
+* community profile (SSID)
+* olsrd defaults etx_ff -> etx_ffeth
+* read and set IPv6 settings
+* set potsdam as default community
+* replace default hostname with "template"
+* append suffix "-ffp" to version, changed VERSION_DIST and VERSION_REPO
+
+
 # Freifunk Firmware Berlin "Hedy"
 https://wiki.freifunk.net/Berlin:Firmware
 
@@ -9,13 +23,14 @@ The firmware is based on vanilla [OpenWrt](https://openwrt.org/start) with some 
 broken stuff in OpenWrt itself or for example LuCI) and additional default packages/configuration settings.
 New features like a new network concept will be part of future releases.
 
-## Release Note 1.0.2 "Hedy" - 2019-01-21
+## Release Note 1.0.4 "Hedy" - 2019-06-26
 * a maintenance release for Hedy-1.0.x-series
 * brings the new feature of changing the uplink preset-type
 * a new uplink-preset "tunnelberlin-tunneldigger"
 * updates to fix security-problems and minor functional problems 
 * images for 
   * Ubiquiti ERX SFP, TP-Link WR1043ND-v4
+  * TP-Link MR3020-v1, TP-Link MR3020, TP-Link Archer C50v1
   * support for RaspberryPi and RaspberryPi3 (compile yourself)
 * introduces interface "ffuplink" for a flexible configuration of the wired uplink
 * improved support of 802.11s mesh in LuCI
@@ -27,9 +42,9 @@ New features like a new network concept will be part of future releases.
 
 ## Features
 * based on [OpenWrt](https://openwrt.org/start) v17.01.6+ (lede-17.01 branch)
-  * Linux 4.4.167
+  * Linux 4.4.182
   * OLSR 0.9.0.3 (downgraded for BBB-VPN compatibility)
-  * B.A.T.M.A.N. 2016.5 (with patches of 2019.0)
+  * B.A.T.M.A.N. 2016.5 (with patches of 2019.2)
 * custom package lists for different settings
   * "default" variant includes ffwizard, openvpn, BATMAN
   * "default_4MB" like the "default" variant, but excludes public router statistics page (luci-mod-freifunk), monitoring (collectd), BATMAN to fit into boards with 4MB flash
@@ -60,7 +75,7 @@ New features like a new network concept will be part of future releases.
 * remove of autoipv6 and use of ULA ipv6 prefixes
 * default dns servers:
   * 85.214.20.141 (FoeBud / Digital Courage)
-  * 80.67.169.40 (www.fdn.fr/actions/dns)
+  * 80.67.169.40 (french data network - http://www.fdn.fr/)
   * 194.150.168.168 (dns.as250.net)
   * 2001:4ce8::53 (as250)
   * 2001:910:800::12 (french data network - http://www.fdn.fr/)
@@ -136,23 +151,30 @@ in `firmwares`. The layout looks like the following:
 ```
 firmwares/
     TARGET/
-        OpenWrt-ImageBuilder-....tar.bz2
         backbone/
            images..
         default/
            images..
         ...
+        OpenWrt-ImageBuilder-....tar.xz
+        OpenWrt-SDK-....tar.xz
         packages/
-           base/
-           luci/
-           packages/
-           packages_berlin/
-           routing/
+           packages/<ARCH>
+              base/*.ipk
+              luci/*.ipk
+              packages/*.ipk
+              packages_berlin/*.ipk
+              routing/*.ipk
+           targets/MAINTARGET/SUBTARGET/packages/
+              *.ipk
 ```
 
 As you notice there are several different image variants ("backbone", "default", etc.).
 These different *packages lists* are defined in `packages/`.
 See the "Features" section above for a description of the purpose of each package list.
+With the "OpenWrt-Imagebuilder" you can assemble your own image variant with your 
+*packages lists* without having to compile everything yourself. The "OpenWrt-SDK" is
+the fastest way to build your own packages or programs without compiling OpenWrt itself.
 
 ### customizing make
 
