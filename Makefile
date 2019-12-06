@@ -21,9 +21,11 @@ SET_BUILDBOT=yes
 endif
 
 ifeq ($(SET_BUILDBOT),no)
-override IS_BUILDBOT=no
-else ifeq ($(SET_BUILDBOT),yes)
-override IS_BUILDBOT=yes
+undefine IS_BUILDBOT
+else
+ifeq ($(SET_BUILDBOT),yes)
+IS_BUILDBOT=yes
+endif
 endif
 
 ifeq ($(IS_BUILDBOT),yes)
