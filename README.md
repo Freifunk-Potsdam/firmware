@@ -57,7 +57,7 @@ New features like a new network concept will be part of future releases.
 * new OLSR setup and configuration:
   * SmartGateway for gateway selection (e.g. honors uplink speed)
   * dynamic gateway plugin for uplink connectivity tests (gwcheck script removed)
-    on hosts: 85.214.20.141, 80.67.169.40, 194.150.168.168
+    on hosts: 85.214.20.141, 213.73.91.35, 194.150.168.168
 * a configuration [wizard](https://github.com/freifunk-berlin/packages-berlin/tree/master/utils/luci-app-ffwizard-berlin)
   * starts after first boot and guides new users through the configuration of the router
 * monitoring of nodes through collectd
@@ -87,9 +87,8 @@ The firmware wiki page is at: https://wiki.freifunk.net/Berlin:Firmware
 For questions write a mail to <berlin@berlin.freifunk.net> or come to our weekly meetings.
 If you find bugs please report them at: https://github.com/freifunk-berlin/firmware/issues
 
-A tutorial on router configuration is available here:
-German: https://wiki.freifunk.net/Berlin:Firmware:Howto
-English: https://wiki.freifunk.net/Berlin:Firmware:En:Howto
+A tutorial on router configuration is available here (in German only):
+http://berlin.freifunk.net/participate/howto/
 
 ## Development
 
@@ -109,14 +108,14 @@ sure the list contains `quilt`. We use it for patch management.
 
 On Ubuntu/Debian:
 ```
-apt-get install git build-essential libncurses5-dev zlib1g-dev gawk time \
+apt-get install git subversion build-essential libncurses5-dev zlib1g-dev gawk \
   unzip libxml-perl flex wget gawk libncurses5-dev gettext quilt python libssl-dev
 ```
 
 On openSUSE:
 ```
 zypper install --type pattern devel_basis
-zypper install git ncurses-devel zlib-devel gawk time \
+zypper install git subversion ncurses-devel zlib-devel gawk \
   unzip perl-libxml-perl flex wget gawk gettext-runtime quilt python libopenssl-devel
 ```
 On Arch/Antergos:
@@ -176,8 +175,6 @@ With the "OpenWrt-Imagebuilder" you can assemble your own image variant with you
 *packages lists* without having to compile everything yourself. The "OpenWrt-SDK" is
 the fastest way to build your own packages or programs without compiling OpenWrt itself.
 
-### customizing make
-
 `make` will use by default `TARGET` and `PACKAGES_LIST_DEFAULT` defined in
 `config.mk`. You can customize this by overriding them:
 
@@ -190,17 +187,16 @@ in addition you can build your own image from a prebuilt imagebuilder by somethi
 make images IB_FILE=<file> TARGET=... PACKAGES_LIST_DEFAULT=...
 ```
 
-The default target is `ar71xx-generic`. For a complete list of supported targets look in `configs/` for the target-specific configs.
-Each of these targets need a matching file in `profiles/` with the profiles (boards) that should be build with the imagebuilder.
+The default target is `ar71xx-generic`. At the moment we support the following targets:
 
-additional options
+* ar71xx-generic
+* ar71xx-mikrotik
+* mpc85xx-generic
+* ramips-mt7620
+* ramips-mt7621
+* x86-generic
 
-* IS_BUILDBOT : 
-  * this will be "yes" when running on the buildbot farm and helps to save some disc-space by removing files not required anymore. On manual builds you should not set this to "yes", as you have to rebuild the whole toolchain each time.
-* SET_BUILDBOT : 
-  * "env" the Makefile will honor the "IS_BUILDBOT" environment
-  * "yes" the Makefile will always act as "IS_BUILDBOT" was set to "yes"
-  * "no"  the Makefile will always act as "IS_BUILDBOT" was set to "no" / is unset. This way we can run builds on the buildbot like a local build.
+You can find configs for these targets in `configs/`.
 
 ### Continuous integration / Buildbot
 

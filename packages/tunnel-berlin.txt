@@ -51,6 +51,8 @@ luci-i18n-firewall-de
 luci-i18n-firewall-en
 luci-i18n-olsr-de
 luci-i18n-olsr-en
+luci-i18n-openvpn-de
+luci-i18n-openvpn-en
 
 # OLSR
 olsrd
@@ -68,7 +70,9 @@ alfred
 batctl
 
 # Uplink
-freifunk-berlin-uplink-tunnelberlin-tunneldigger-files
+luci-app-openvpn
+openvpn-openssl
+freifunk-berlin-uplink-tunnelberlin-files
 
 # Statistics
 freifunk-potsdam-collect
