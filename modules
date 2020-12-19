@@ -16,7 +16,10 @@ PACKAGES_ROUTING_COMMIT=f690ecb7e03e00851058e9b1d16b233b415897bd
 PACKAGES_PACKAGES_BERLIN_REPO=https://github.com/freifunk-berlin/firmware-packages.git
 PACKAGES_PACKAGES_BERLIN_COMMIT=b4751c792c79e4ec82d7ea12cb1333d524d1ffad
 
+PACKAGES_PACKAGES_POTSDAM_REPO=https://github.com/Freifunk-Potsdam/firmware-packages
+PACKAGES_PACKAGES_POTSDAM_COMMIT=5e4d59b9a1f0561ed8ab80a24b681df491ec38b4
+
 PACKAGES_PACKAGES_GLUON_REPO=https://github.com/freifunk-gluon/packages.git
 PACKAGES_PACKAGES_GLUON_COMMIT=95c805c863cd0818f0e5196d3b7bde6860fd2861
 
-GLUON_FEEDS='packages luci freifunk routing packages_berlin packages_gluon'
+GLUON_FEEDS='packages luci freifunk routing packages_berlin packages_potsdam packages_gluon'
