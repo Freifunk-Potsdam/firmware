@@ -7,13 +7,13 @@ wpad-basic
 # Defaults
 freifunk-berlin-dhcp-defaults
 freifunk-berlin-firewall-defaults
-freifunk-berlin-freifunk-defaults
 freifunk-berlin-migration
 freifunk-berlin-network-defaults
-freifunk-berlin-olsrd-defaults
 freifunk-berlin-statistics-defaults
-freifunk-berlin-system-defaults
 freifunk-berlin-uhttpd-defaults
+freifunk-potsdam-freifunk-defaults
+freifunk-potsdam-olsrd-defaults
+freifunk-potsdam-system-defaults
 community-profiles
 
 # Common
